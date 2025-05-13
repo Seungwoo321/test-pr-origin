@@ -13,21 +13,20 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: main
           
-      - name: Create temp branch with main content
-        run: |
-          git checkout -b temp-sync-branch
-          
+      # peter-evans/create-pull-request가 자체적으로 임시 브랜치를 생성하도록 설정
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: sync main to release"
           base: release
-          branch: temp-sync-branch
+          branch: auto-sync-to-release  # 액션이 자동으로 생성할 브랜치명
           title: 'chore: sync main to release'
           body: |
             이 PR은 메인 브랜치의 변경사항을 릴리즈 브랜치로 동기화합니다.
