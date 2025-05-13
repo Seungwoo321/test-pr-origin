@@ -13,23 +13,23 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout main
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-          ref: main
-          
-      # peter-evans/create-pull-request가 자체적으로 임시 브랜치를 생성하도록 설정
+          ref: release
+
+      - name: Reset main branch
+        run: |
+          git fetch origin main:main
+          git reset --hard main
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main-to-release
           commit-message: "chore: sync main to release"
-          base: release
-          branch: auto-sync-to-release  # 액션이 자동으로 생성할 브랜치명
           title: 'chore: sync main to release'
           body: |
             이 PR은 메인 브랜치의 변경사항을 릴리즈 브랜치로 동기화합니다.
             
             이 PR이 머지되면 릴리즈 워크플로우가 자동으로 트리거됩니다.
           delete-branch: true
+
