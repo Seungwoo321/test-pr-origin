@@ -30,6 +30,6 @@ jobs:
             이 PR은 메인 브랜치의 변경사항을 릴리즈 브랜치로 동기화합니다.
 
             이 PR이 머지되면 릴리즈 워크플로우가 자동으로 트리거됩니다.
-          labels: |
-            automated-pr
-            sync-to-release
+          # labels: |
+          #   automated-pr
+          #   sync-to-release
