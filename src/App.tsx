@@ -13,7 +13,6 @@ function App () {
           target='_blank'
           rel='noopener noreferrer'
         >
-          {' '}
           <img
             src='vite.svg'
             className='logo'
